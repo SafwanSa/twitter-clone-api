@@ -5,6 +5,6 @@ from .models import Tweet
 
 class TweetViewSet(viewsets.ModelViewSet):
   queryset = Tweet.objects.all().order_by('created_at')
-  serializer = TweetSerializer
+  serializer_class = TweetSerializer
 
 
