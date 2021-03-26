@@ -4,4 +4,4 @@ from django.utils import timezone
 
 class Tweet(models.Model):
   tweet = models.TextField()
-  created_at = models.DateField(default=timezone.now())
+  created_at = models.DateField(default=timezone.now)
