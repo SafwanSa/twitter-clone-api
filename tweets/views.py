@@ -3,6 +3,7 @@ from .serializers import TweetSerializer
 from .models import Tweet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
 
 
 class TweetViewSet(viewsets.ModelViewSet):
@@ -19,7 +20,11 @@ def list_tweets(request):
 
 @api_view(['POST'])
 def create_tweet(request):
-    data = request.body
-    serializer = TweetSerializer(data)
-    print(serializer.data)
-    return Response(serializer.data)
+    data = JSONParser().parse(request)
+    print(data)
+    serializer = TweetSerializer(data=data, many=False)
+    if serializer.is_valid():
+        serializer.save(account=request.user)
+        return Response(serializer.data)
+    else:
+        return Response(status=400)
