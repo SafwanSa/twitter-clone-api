@@ -11,6 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class TweetSerializer(serializers.ModelSerializer):
     account = UserSerializer(read_only=True)
+    liked_by = UserSerializer(read_only=True, many=True)
 
     class Meta:
         model = Tweet
