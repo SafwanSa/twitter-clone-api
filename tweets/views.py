@@ -21,10 +21,9 @@ def list_tweets(request):
 @api_view(['POST'])
 def create_tweet(request):
     data = JSONParser().parse(request)
-    print(data)
     serializer = TweetSerializer(data=data, many=False)
     if serializer.is_valid():
-        serializer.save(account=request.user)
+        serializer.save(account=None)
         return Response(serializer.data)
     else:
         return Response(status=400)
