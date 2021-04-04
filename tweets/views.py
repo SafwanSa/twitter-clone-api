@@ -4,7 +4,7 @@ from .models import Tweet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
-
+from django.shortcuts import get_object_or_404
 
 class TweetViewSet(viewsets.ModelViewSet):
     queryset = Tweet.objects.all().order_by('created_at')
@@ -30,7 +30,6 @@ def create_tweet(request):
 
 @api_view(['GET'])
 def get_tweet(request, pk):
-    print('GET Called')
-    tweet = Tweet.objects.get(pk=pk)
+    tweet = get_object_or_404(Tweet, pk=pk)
     serializer = TweetSerializer(tweet, many=False)
     return Response(serializer.data)
