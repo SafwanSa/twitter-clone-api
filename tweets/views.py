@@ -30,6 +30,7 @@ def create_tweet(request):
 
 @api_view(['GET'])
 def get_tweet(request, pk):
+    print('GET Called')
     tweet = Tweet.objects.get(pk=pk)
     serializer = TweetSerializer(tweet, many=False)
     return Response(serializer.data)
