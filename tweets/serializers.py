@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username']
+        fields = ['username']
 
 
 class TweetSerializer(serializers.ModelSerializer):
@@ -14,4 +14,4 @@ class TweetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tweet
-        fields = ['account', 'tweet', 'created_at']
+        fields = ['id', 'account', 'tweet', 'created_at']
