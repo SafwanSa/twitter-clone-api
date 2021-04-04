@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TweetSerializer(serializers.ModelSerializer):
-    account = UserSerializer()
+    account = UserSerializer(read_only=True)
 
     class Meta:
         model = Tweet

@@ -1,10 +1,30 @@
 from rest_framework import viewsets
 from .serializers import TweetSerializer
 from .models import Tweet
-# Create your views here.
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
+
 
 class TweetViewSet(viewsets.ModelViewSet):
-  queryset = Tweet.objects.all().order_by('created_at')
-  serializer_class = TweetSerializer
+    queryset = Tweet.objects.all().order_by('created_at')
+    serializer_class = TweetSerializer
 
 
+@api_view(['GET'])
+def list_tweets(request):
+    tweets_list = Tweet.objects.all().order_by('created_at')
+    serializer = TweetSerializer(tweets_list, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def create_tweet(request):
+    data = JSONParser().parse(request)
+    print(data)
+    serializer = TweetSerializer(data=data, many=False)
+    if serializer.is_valid():
+        serializer.save(account=request.user)
+        return Response(serializer.data)
+    else:
+        return Response(status=400)
