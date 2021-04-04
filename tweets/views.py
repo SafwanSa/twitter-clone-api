@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from django.shortcuts import get_object_or_404
-from django.conf import settings
+from django.contrib.auth.models import User
 
 class TweetViewSet(viewsets.ModelViewSet):
     queryset = Tweet.objects.all().order_by('created_at')
@@ -38,4 +38,5 @@ def get_tweet(request, pk):
 @api_view(['POST'])
 def like_post(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
-    tweet.liked_by.add(settings.AUTH_USER_MODEL)
+    tweet.liked_by.add(1) # Replace this with the token id
+    return Response({"Message": "Accepted"})

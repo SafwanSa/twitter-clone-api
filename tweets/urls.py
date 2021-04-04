@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import TweetViewSet, list_tweets, create_tweet, get_tweet
+from .views import *
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -10,5 +10,6 @@ urlpatterns = [
     path('tweets-list', list_tweets),
     path('tweets-create', create_tweet),
     path('tweets/<pk>', get_tweet),
+    path('tweets-like/<pk>', like_post),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
