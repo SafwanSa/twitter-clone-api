@@ -22,6 +22,7 @@ def list_tweets(request):
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated, ))
 def create_tweet(request):
     data = JSONParser().parse(request)
     serializer = TweetSerializer(data=data, many=False)
