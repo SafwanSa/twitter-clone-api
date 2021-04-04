@@ -17,7 +17,6 @@ def list_tweets(request):
     serializer = TweetSerializer(tweets_list, many=True)
     return Response(serializer.data)
 
-
 @api_view(['POST'])
 def create_tweet(request):
     data = JSONParser().parse(request)

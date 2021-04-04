@@ -10,3 +10,8 @@ class Tweet(models.Model):
         to=User, on_delete=models.CASCADE, blank=True, null=True)
     tweet = models.TextField()
     created_at = models.DateField(default=datetime.date.today)
+    liked_by = models.ManyToManyField(to=User, related_name='liked_by')
+
+    def __str__(self):
+        return self.tweet
+    
