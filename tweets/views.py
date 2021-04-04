@@ -27,3 +27,9 @@ def create_tweet(request):
         return Response(serializer.data)
     else:
         return Response(status=400)
+
+@api_view(['GET'])
+def get_tweet(request, pk):
+    tweet = Tweet.objects.get(pk=pk)
+    serializer = TweetSerializer(tweet, many=False)
+    return Response(serializer.data)
