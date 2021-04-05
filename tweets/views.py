@@ -40,6 +40,13 @@ def get_tweet(request, pk):
     return Response(serializer.data)
 
 
+@api_view(['DELETE'])
+def tweet_delete(request, pk):
+    tweet = get_object_or_404(Tweet, pk=pk)
+    tweet.delete()
+    return Reposne(tweet)
+
+
 @api_view(['POST'])
 @permission_classes((IsAuthenticated, ))
 def like_post(request, pk):
