@@ -7,6 +7,7 @@ from rest_framework.parsers import JSONParser
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
+from copy import deepcopy
 
 
 class TweetViewSet(viewsets.ModelViewSet):
@@ -43,8 +44,10 @@ def get_tweet(request, pk):
 @api_view(['DELETE'])
 def delete_tweet(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
+    deleted = deepcopy(tweet)
     tweet.delete()
-    return Reposne(tweet)
+    serializer = TweetSerializer(deleted)
+    return Response(serializer.data)
 
 
 @api_view(['POST'])
