@@ -66,3 +66,18 @@ def retweet_tweet(request, pk):
     tweet.retweeted_by.add(request.user.id)
     serializer = TweetSerializer(tweet)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def comment(request, pk):
+    data = JSONParser().parse(request)
+    data['parent'] = 8
+    print(data)
+    # return Response(status=400)
+    serializer = TweetSerializer(data=data, many=False)
+    serializer.is_valid(raise_exception=True)
+    if serializer.is_valid():
+        serializer.save(account=None)
+        return Response(serializer.data)
+    else:
+        return Response(status=400)

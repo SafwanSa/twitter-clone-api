@@ -9,18 +9,22 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username']
 
 
-class MyKeywordsField(serializers.RelatedField):
+class CommentSerializer(serializers.RelatedField):
     def to_native(self, value):
         return {str(value.pk): value.name}
+
+    def to_representation(self, data):
+        serializer = TweetSerializer(data)
+        return serializer.data
 
 
 class TweetSerializer(serializers.ModelSerializer):
     account = UserSerializer(read_only=True)
     liked_by = UserSerializer(read_only=True, many=True)
     retweeted_by = UserSerializer(read_only=True, many=True)
-    likes = serializers.IntegerField(source='get_likes')
-    retweets = serializers.IntegerField(source='get_retweets')
-    comments = MyKeywordsField(many=True, read_only=True)
+    likes = serializers.IntegerField(source='get_likes', read_only=True)
+    retweets = serializers.IntegerField(source='get_retweets', read_only=True)
+    comments = CommentSerializer(many=True, read_only=True)
     # parent = serializers.RelatedField()
 
     class Meta:
