@@ -12,6 +12,8 @@ class Tweet(models.Model):
     created_at = models.DateField(default=datetime.date.today)
     liked_by = models.ManyToManyField(to=User, related_name='liked_by')
     retweeted_by = models.ManyToManyField(to=User, related_name="retweeted_by")
+    parent = models.ForeignKey(
+        'self', blank=True, null=True, on_delete=models.CASCADE, related_name='comments')
 
     def __str__(self):
         return self.tweet
