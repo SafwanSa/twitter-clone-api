@@ -71,7 +71,7 @@ def retweet_tweet(request, pk):
 @api_view(['POST'])
 def comment(request, pk):
     data = JSONParser().parse(request)
-    data['parent'] = 8
+    data['parent'] = pk
     print(data)
     # return Response(status=400)
     serializer = TweetSerializer(data=data, many=False)
