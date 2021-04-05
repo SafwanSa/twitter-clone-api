@@ -28,6 +28,6 @@ class TweetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tweet
-        fields = ['account', 'liked_by', 'retweeted_by',
+        fields = ['account', 'tweet', 'liked_by', 'retweeted_by',
                   'likes', 'retweets', 'comments']
         read_only_fields = ['created_at']
