@@ -44,5 +44,5 @@ def get_tweet(request, pk):
 @permission_classes((IsAuthenticated, ))
 def like_post(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
-    tweet.liked_by.add(request.user.id)  # Replace this with the token id
-    return Response({"Message": "Accepted"})
+    tweet.liked_by.add(request.user.id)
+    return Response(serializer.data)
