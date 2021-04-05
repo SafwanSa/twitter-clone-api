@@ -18,3 +18,6 @@ class Tweet(models.Model):
 
     def get_likes(self):
         return self.liked_by.count()
+
+    def get_retweets(self):
+        return self.retweeted_by.count()
