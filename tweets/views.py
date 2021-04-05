@@ -55,4 +55,13 @@ def delete_tweet(request, pk):
 def like_post(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
     tweet.liked_by.add(request.user.id)
+    serializer = TweetSerializer(tweet)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def retweet_tweet(request, pk):
+    tweet = get_object_or_404(Tweet, pk=pk)
+    tweet.retweeted_by.add(1)
+    serializer = TweetSerializer(tweet)
     return Response(serializer.data)
