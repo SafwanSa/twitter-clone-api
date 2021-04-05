@@ -41,7 +41,7 @@ def get_tweet(request, pk):
 
 
 @api_view(['DELETE'])
-def tweet_delete(request, pk):
+def delete_tweet(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
     tweet.delete()
     return Reposne(tweet)
