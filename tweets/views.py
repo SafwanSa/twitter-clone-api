@@ -72,8 +72,6 @@ def retweet_tweet(request, pk):
 def comment(request, pk):
     data = JSONParser().parse(request)
     data['parent'] = pk
-    print(data)
-    # return Response(status=400)
     serializer = TweetSerializer(data=data, many=False)
     serializer.is_valid(raise_exception=True)
     if serializer.is_valid():
