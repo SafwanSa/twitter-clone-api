@@ -60,8 +60,9 @@ def like_post(request, pk):
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated, ))
 def retweet_tweet(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
-    tweet.retweeted_by.add(1)
+    tweet.retweeted_by.add(request.user.id)
     serializer = TweetSerializer(tweet)
     return Response(serializer.data)
