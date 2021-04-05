@@ -14,4 +14,6 @@ class Tweet(models.Model):
 
     def __str__(self):
         return self.tweet
-    
+
+    def get_likes(self):
+        return self.liked_by.count()
