@@ -10,9 +10,9 @@ from rest_framework.permissions import IsAuthenticated
 from copy import deepcopy
 
 
-class TweetViewSet(viewsets.ModelViewSet):
-    queryset = Tweet.objects.all().order_by('created_at')
-    serializer_class = TweetSerializer
+# class TweetViewSet(viewsets.ModelViewSet):
+#     queryset = Tweet.objects.all().order_by('created_at')
+#     serializer_class = TweetSerializer
 
 
 @api_view(['GET'])
