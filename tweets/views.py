@@ -28,7 +28,7 @@ def create_tweet(request):
     data = JSONParser().parse(request)
     serializer = TweetSerializer(data=data, many=False)
     if serializer.is_valid():
-        serializer.save(account=None)
+        serializer.save(account=request.user)
         return Response(serializer.data)
     else:
         return Response(status=400)
@@ -75,7 +75,7 @@ def comment(request, pk):
     serializer = TweetSerializer(data=data, many=False)
     serializer.is_valid(raise_exception=True)
     if serializer.is_valid():
-        serializer.save(account=None)
+        serializer.save(account=request.user.id)
         return Response(serializer.data)
     else:
         return Response(status=400)
