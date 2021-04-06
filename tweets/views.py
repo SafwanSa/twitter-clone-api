@@ -52,7 +52,7 @@ def delete_tweet(request, pk):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated, ))
-def toggle_like_post(request, pk):
+def toggle_like(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
     liked_by = tweet.liked_by.all()
     if request.user in liked_by:
@@ -65,9 +65,13 @@ def toggle_like_post(request, pk):
 
 @ api_view(['POST'])
 @ permission_classes((IsAuthenticated, ))
-def retweet_tweet(request, pk):
+def toggle_retweet(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
-    tweet.retweeted_by.add(request.user.id)
+    retweeted_by = tweet.retweeted_by.all()
+    if request.user in retweeted_by:
+        tweet.retweeted_by.remove(request.user.id)
+    else:
+        tweet.retweeted_by.add(request.user.id)
     serializer = TweetSerializer(tweet)
     return Response(serializer.data)
 
