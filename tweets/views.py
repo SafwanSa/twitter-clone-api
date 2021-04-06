@@ -52,7 +52,7 @@ def delete_tweet(request, pk):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated, ))
-def like_post(request, pk):
+def toggle_like_post(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
     liked_by = tweet.liked_by.all()
     if request.user in liked_by:
