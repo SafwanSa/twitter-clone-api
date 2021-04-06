@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.RelatedField):
     def to_native(self, value):
-        return {str(value.pk): value.name}
+        return {str(value.pk): value.id}
 
     def to_representation(self, data):
         serializer = TweetSerializer(data)
@@ -28,6 +28,6 @@ class TweetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tweet
-        fields = ['account', 'tweet', 'liked_by', 'retweeted_by',
-                  'likes', 'retweets', 'comments']
-        read_only_fields = ['created_at']
+        fields = '__all__'
+        read_only_fields = ['created_at', 'parent']
+        # exclude = ['parent']
