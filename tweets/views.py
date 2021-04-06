@@ -54,13 +54,17 @@ def delete_tweet(request, pk):
 @permission_classes((IsAuthenticated, ))
 def like_post(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
-    tweet.liked_by.add(request.user.id)
+    liked_by = tweet.liked_by.all()
+    if request.user in liked_by:
+        tweet.liked_by.remove(request.user.id)
+    else:
+        tweet.liked_by.add(request.user.id)
     serializer = TweetSerializer(tweet)
     return Response(serializer.data)
 
 
-@api_view(['POST'])
-@permission_classes((IsAuthenticated, ))
+@ api_view(['POST'])
+@ permission_classes((IsAuthenticated, ))
 def retweet_tweet(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
     tweet.retweeted_by.add(request.user.id)
@@ -68,7 +72,7 @@ def retweet_tweet(request, pk):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def comment(request, pk):
     data = JSONParser().parse(request)
     data['parent'] = pk
