@@ -63,8 +63,8 @@ def toggle_like(request, pk):
     return Response(serializer.data)
 
 
-@ api_view(['POST'])
-@ permission_classes((IsAuthenticated, ))
+@api_view(['POST'])
+@permission_classes((IsAuthenticated, ))
 def toggle_retweet(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
     retweeted_by = tweet.retweeted_by.all()
@@ -76,7 +76,7 @@ def toggle_retweet(request, pk):
     return Response(serializer.data)
 
 
-@ api_view(['POST'])
+@api_view(['POST'])
 def comment(request, pk):
     data = JSONParser().parse(request)
     data['parent'] = pk
