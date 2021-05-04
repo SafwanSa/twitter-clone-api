@@ -22,12 +22,12 @@ class TweetSerializer(serializers.ModelSerializer):
     account = UserSerializer(read_only=True)
     # liked_by = UserSerializer(read_only=True, many=True)
     # retweeted_by = UserSerializer(read_only=True, many=True)
-    # likes = serializers.IntegerField(source='get_likes', read_only=True)
-    # retweets = serializers.IntegerField(source='get_retweets', read_only=True)
+    likes = serializers.IntegerField(source='get_likes', read_only=True)
+    retweets = serializers.IntegerField(source='get_retweets', read_only=True)
     # comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Tweet
-        fields = ['tweet', 'created_at', 'account']
+        # fields = '__all__'
         read_only_fields = ['created_at']
-        # exclude = ['parent']
+        exclude = ['liked_by', 'retweeted_by', 'parent']
