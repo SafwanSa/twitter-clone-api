@@ -16,5 +16,6 @@ urlpatterns = [
     path('tweets-delete/<pk>', delete_tweet),
     path('tweets-comment/<pk>', comment),
     path('auth-token/', views.obtain_auth_token),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('silk/', include('silk.urls', namespace='silk'))
 ]
