@@ -42,12 +42,16 @@ def get_tweet(request, pk):
 
 
 @api_view(['DELETE'])
+@permission_classes((IsAuthenticated, ))
 def delete_tweet(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
-    deleted = deepcopy(tweet)
-    tweet.delete()
-    serializer = TweetSerializer(deleted)
-    return Response(serializer.data)
+    if tweet.account == request.user:
+        deleted = deepcopy(tweet)
+        tweet.delete()
+        serializer = TweetSerializer(deleted)
+        return Response(serializer.data)
+    else:
+        return Response(status=401, data={'Error': 'Unauthorized to delete the tweet.'})
 
 
 @api_view(['POST'])
