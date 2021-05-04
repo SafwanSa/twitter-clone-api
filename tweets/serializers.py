@@ -25,6 +25,10 @@ class TweetSerializer(serializers.ModelSerializer):
     likes = serializers.IntegerField(source='get_likes', read_only=True)
     retweets = serializers.IntegerField(source='get_retweets', read_only=True)
     comments = CommentSerializer(many=True, read_only=True)
+    comments_num = serializers.SerializerMethodField(read_only=True)
+
+    def get_comments_num(self, tweet):
+        return tweet.comments.count()
 
     class Meta:
         model = Tweet
