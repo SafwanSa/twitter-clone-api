@@ -81,6 +81,7 @@ def toggle_retweet(request, pk):
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated, ))
 def comment(request, pk):
     data = JSONParser().parse(request)
     data['parent'] = pk
