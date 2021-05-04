@@ -81,9 +81,8 @@ def comment(request, pk):
     data = JSONParser().parse(request)
     data['parent'] = pk
     serializer = TweetSerializer(data=data, many=False)
-    serializer.is_valid(raise_exception=True)
     if serializer.is_valid():
-        serializer.save(account=request.user.id)
+        serializer.save(account=request.user)
         return Response(serializer.data)
     else:
         return Response(status=400)

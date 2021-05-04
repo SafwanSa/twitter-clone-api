@@ -29,5 +29,5 @@ class TweetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tweet
         fields = '__all__'
-        read_only_fields = ['created_at', 'parent']
+        read_only_fields = ['created_at']
         # exclude = ['parent']
