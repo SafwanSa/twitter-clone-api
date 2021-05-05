@@ -18,7 +18,8 @@ from copy import deepcopy
 @api_view(['GET'])
 def list_tweets(request):
     tweets_list = Tweet.objects.all().order_by('created_at')
-    serializer = TweetSerializer(tweets_list, many=True)
+    serializer = TweetSerializer(tweets_list, fields=(
+        'id', 'tweet', 'created_at', 'retweets', 'likes', 'account', 'comments_num'), many=True)
     return Response(serializer.data)
 
 
