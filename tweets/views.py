@@ -17,7 +17,8 @@ from copy import deepcopy
 
 @api_view(['GET'])
 def list_tweets(request):
-    tweets_list = Tweet.objects.all().order_by('created_at')
+    # Get only the tweets without the comments - This endpoint can be used for the timeline
+    tweets_list = Tweet.objects.all().order_by('created_at').filter(parent=None)
     serializer = TweetSerializer(tweets_list, fields=(
         'id', 'tweet', 'created_at', 'retweets', 'likes', 'account', 'comments_num'), many=True)
     return Response(serializer.data)
