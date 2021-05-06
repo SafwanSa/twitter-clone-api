@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'tweets.apps.TweetsConfig',
+    'user_profile.apps.UserProfileConfig',
+
     'rest_framework',
     'rest_framework.authtoken',
     'silk',
