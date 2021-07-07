@@ -94,12 +94,12 @@ WSGI_APPLICATION = 'twitter_clone.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'twitterclone',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '',
+        'PORT': '5432',
     }
 }
 
